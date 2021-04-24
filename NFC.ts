@@ -332,7 +332,7 @@ namespace NFC {
 
     //% weight=8
     //% block="check nfc id|%id"
-    //% id.defl="39324fa2"
+    //% id.defl="6F12A342"
     export function checkUid(id: string): boolean {
         if (NFC_ENABLE === 0) {
             wakeup();
