@@ -408,7 +408,7 @@ namespace NFC {
         return ret;
     }
     //% weight=4
-    //% block="Read NFC data bytes|%blockN=block_nfc_list|%index=data_nfc_list|%nByte"
+    //% block="Read NFC data at|%blockN=block_nfc_list|%index=data_nfc_list|%nByte byte"
     //% block.defl=1
     //% blockN.defl=1 byteN.defl=1
     //% nByte.min=1 nByte.max=16
