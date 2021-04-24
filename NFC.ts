@@ -304,7 +304,7 @@ namespace NFC {
     }
 
     //% weight=9
-    //% block="Detect Card"
+    //% block="Detect NFC Card"
     export function checkCard(): boolean {
         if (NFC_ENABLE === 0) {
             wakeup();
@@ -331,7 +331,7 @@ namespace NFC {
     }
 
     //% weight=8
-    //% block="check nfc id|%id"
+    //% block="Check NFC UID|%id"
     //% id.defl="6F12A342"
     export function checkUid(id: string): boolean {
         if (NFC_ENABLE === 0) {
@@ -344,7 +344,7 @@ namespace NFC {
     }
 
     //% weight=7
-    //% block="get nfc id"
+    //% block="Get NFC UID"
     export function getUid(): string {
         if (NFC_ENABLE === 0) {
             wakeup();
@@ -361,7 +361,7 @@ namespace NFC {
 
 
     //% weight=6
-    //% block="read nfc data block|%block=block_nfc_list"
+    //% block="Read NFC data block|%block=block_nfc_list"
     //% block.defl=1
     export function readDataBlock(block: number): string {
         if (NFC_ENABLE === 0) {
@@ -406,7 +406,7 @@ namespace NFC {
     }
 
     //% weight=5
-    //% block="read nfc data one byte|%block=block_nfc_list|%byteN=data_nfc_list"
+    //% block="Read NFC data one byte|%block=block_nfc_list|%byteN=data_nfc_list"
     //% block.defl=1
     //% blockN.defl=1 byteN.defl=1
     export function readDataByte(block: number, byteN: number): string {
@@ -419,7 +419,7 @@ namespace NFC {
         return ret;
     }
     //% weight=4
-    //% block="read nfc data bytes|%blockN=block_nfc_list|%index=data_nfc_list|%nByte"
+    //% block="Read NFC data bytes|%blockN=block_nfc_list|%index=data_nfc_list|%nByte"
     //% block.defl=1
     //% blockN.defl=1 byteN.defl=1
     //% nByte.min=1 nByte.max=16
@@ -446,7 +446,7 @@ namespace NFC {
     //% weight=3
     //% blockId=write_nfc_data 
     //% data.min=0 data.max=255
-    //% block="NFC sensor|%blockN=block_nfc_list|%index=data_nfc_list|write%data"
+    //% block="NFC card|%blockN=block_nfc_list|%index=data_nfc_list|write%data"
     export function writeData(blockN: number, index: number, data: number): void{
         if ((blockN > 63) || (blockN < 0)) {
             return ;
