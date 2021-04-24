@@ -132,7 +132,7 @@ enum byteNumList {
 
 //% color="#AA278D" height=100 icon="\uf062" block="NFC"
 namespace NFC {
-    let NFC_I2C_ADDR = (0x48 >> 1);
+    let NFC_I2C_ADDR = (0x24);
     let recvBuf = pins.createBuffer(32);
     let recvAck = pins.createBuffer(8);
     let ackBuf = pins.createBuffer(6);
