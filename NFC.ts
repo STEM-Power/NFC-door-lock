@@ -291,18 +291,7 @@ namespace NFC {
         let tempbuf = pins.createBufferFromArray(cmdWrite)
         writeAndReadBuf(tempbuf, 16);
     }
-    //% weight=2
-    //% blockId=block_nfc_list block="%blockNum|data block"
-    export function blockList(blockNum?: DataBlockList): number {
-        return blockNum;
-    }
-
-    //% weight=1
-    //% blockId=data_nfc_list block="%dataNum|byte"
-    export function nfcDataList(dataNum?: byteNumList): number {
-        return dataNum;
-    }
-
+   
     //% weight=9
     //% block="Detect NFC Card"
     export function checkCard(): boolean {
@@ -406,7 +395,7 @@ namespace NFC {
     }
 
     //% weight=5
-    //% block="Read NFC data one byte|%block=block_nfc_list|%byteN=data_nfc_list"
+    //% block="Read one byte NFC data at|%block=block_nfc_list|%byteN=data_nfc_list"
     //% block.defl=1
     //% blockN.defl=1 byteN.defl=1
     export function readDataByte(block: number, byteN: number): string {
@@ -464,4 +453,16 @@ namespace NFC {
         writeblock(blockN, blockData);
         basic.pause(3);
     }
+     //% weight=2
+    //% blockId=block_nfc_list block="%blockNum|data block"
+    export function blockList(blockNum?: DataBlockList): number {
+        return blockNum;
+    }
+
+    //% weight=1
+    //% blockId=data_nfc_list block="%dataNum|byte"
+    export function nfcDataList(dataNum?: byteNumList): number {
+        return dataNum;
+    }
+
 }
