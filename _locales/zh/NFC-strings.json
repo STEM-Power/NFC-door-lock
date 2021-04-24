@@ -4,8 +4,8 @@
     "NFC.checkCard|block": "檢測到NFC卡？",
     "NFC.checkUid|block": "檢查NFC卡的UID是否|%id|?",
     "NFC.getUid|block": "讀取NFC卡的UID",
-    "NFC.readDataBlock|block": "讀取NFC卡|%block=block_nfc_list|讀取NFC卡的所有數據",
+    "NFC.readDataBlock|block": "讀取NFC卡|%block=block_nfc_list|的所有數據",
     "NFC.readDataByte|block": "讀取NFC卡|%blockN=block_nfc_list的第|%byteNum=data_nfc_list數據",
-    "NFC.readDataNByte|block": "讀取NFC卡|%blockN=block_nfc_list 第|%index=data_nfc_list %nByte字節的數據",
+    "NFC.readDataNByte|block": "讀取NFC卡|%blockN=block_nfc_list 第|%index=data_nfc_list %nByte的數據",
     "NFC.writeData|block": "向NFC卡中數據塊:|%blockN = block_nfc_list |第： %index=data_nfc_list|字節寫入數據 %data"
 }
