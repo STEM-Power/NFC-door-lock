@@ -524,8 +524,11 @@ namespace NFC {
         byte1 = (nfcUid & 0xFF000000) >> 24;
 
         write_byte_eeprom(4, byte4);
+        pause(5)
         write_byte_eeprom(5, byte3);
+        pause(5)
         write_byte_eeprom(6, byte2);
+        pause(5)
         write_byte_eeprom(7, byte1);
         
     }
