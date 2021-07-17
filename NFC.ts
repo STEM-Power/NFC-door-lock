@@ -490,11 +490,26 @@ namespace NFC {
         return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
     }
 
+
+    /**
+     * record number of registered card to memory
+     * @param card number of card registered, eg: 1
+     */
+    //% blockId="Write_R_Card" block="record number of registered card to memory %card"
+    //% weight=49 blockGap=8
+    export function Write_R_Card(card: number): void {
+        let buf = pins.createBuffer(3);
+        buf[0] = 0x0000 >> 8;
+        buf[1] = 0x00;
+        buf[2] = card;
+        pins.i2cWriteBuffer(AT24_I2C_ADDR, buf)
+    }
+
     /**
     * register NFC card
     * @param ID card identification, eg: 1
     */
-    //% weight=49
+    //% weight=48
     //% ID.min=1 ID.max=32
     //% blockId="Register_Card" block="register NFC card UID to identification %ID"
     export function recordUid(ID: number): void {
