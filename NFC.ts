@@ -509,7 +509,7 @@ namespace NFC {
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
         }
-        let nfcUid = 0x00000000;
+        let nfcUid = 0x1f46fd64;
         //let byte1 = uId[0];
         //let byte2 = uId[1];
         //let byte3 = uId[2];
