@@ -509,7 +509,7 @@ namespace NFC {
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
         }
-        let nfcUid = 0x356575F3;
+        let nfcUid = 0x00000000;
         //let byte1 = uId[0];
         //let byte2 = uId[1];
         //let byte3 = uId[2];
@@ -523,13 +523,13 @@ namespace NFC {
         byte2 = (nfcUid & 0xFF0000) >> 16;
         byte1 = (nfcUid & 0xFF000000) >> 24;
 
-        write_byte_eeprom(4, byte4);
+        write_byte_eeprom(ID * 4, byte4);
         pause(5)
-        write_byte_eeprom(5, byte3);
+        write_byte_eeprom(ID * 4 + 1, byte3);
         pause(5)
-        write_byte_eeprom(6, byte2);
+        write_byte_eeprom(ID * 4 + 2, byte2);
         pause(5)
-        write_byte_eeprom(7, byte1);
+        write_byte_eeprom(ID * 4 + 3, byte1);
         
     }
 
