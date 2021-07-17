@@ -524,29 +524,54 @@ namespace NFC {
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
         }
-        //let nfcUid = 0x1f46fd64;
         let byte1 = uId[0];
         let byte2 = uId[1];
         let byte3 = uId[2];
         let byte4 = uId[3];
-        //let byte1 = 0;
-        //let byte2 = 0;
-        //let byte3 = 0;
-        //let byte4 = 0;
-        //byte4 = (nfcUid & 0xFF);
-        //byte3 = (nfcUid & 0xFF00) >> 8;
-        //byte2 = (nfcUid & 0xFF0000) >> 16;
-        //byte1 = (nfcUid & 0xFF000000) >> 24;
-
-        write_byte_eeprom(ID * 4, byte4);
+        write_byte_eeprom(ID * 4, byte1);
         pause(5)
-        write_byte_eeprom(ID * 4 + 1, byte3);
+        write_byte_eeprom(ID * 4 + 1, byte2);
         pause(5)
-        write_byte_eeprom(ID * 4 + 2, byte2);
+        write_byte_eeprom(ID * 4 + 2, byte3);
         pause(5)
-        write_byte_eeprom(ID * 4 + 3, byte1);
+        write_byte_eeprom(ID * 4 + 3, byte4);
         
     }
+
+    /**
+    * compare NFC card with the registered card record
+    */
+    //% weight=47
+    //% blockId="Exam_Card" block="compare the card with the registered card record"
+    export function Exam_Card(): boolean {
+        let cardcount = registered_card();
+        if (NFC_ENABLE = 0) {
+            wakeup();
+        }
+        let buf: number[] = [];
+        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
+        let cmdUid = pins.createBufferFromArray(buf);
+        writeAndReadBuf(cmdUid, 24);
+
+        for (let i = 0; i < uId.length; i++) {
+            uId[i] = recvBuf[14 + i];
+        }
+        let byte1 = uId[0];
+        let byte2 = uId[1];
+        let byte3 = uId[2];
+        let byte4 = uId[3];
+        for (let i = 0; i < cardcount; i++) {
+            let R_byte1 = read_byte_eeprom (i + 1 * 4)
+            let R_byte2 = read_byte_eeprom(i + 1 * 4 + 1)
+            let R_byte3 = read_byte_eeprom(i + 1 * 4 + 2)
+            let R_byte4 = read_byte_eeprom(i + 1 * 4 + 3)
+            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
