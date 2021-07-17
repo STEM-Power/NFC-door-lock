@@ -496,7 +496,7 @@ namespace NFC {
     */
     //% weight=49
     //% ID.min=1 ID.max=32
-    //% blockId="Register_Card" block="register NFC card UID to %ID"
+    //% blockId="Register_Card" block="register NFC card UID to identification %ID"
     export function recordUid(ID: number): void {
         if (NFC_ENABLE = 0)  {
             wakeup();
