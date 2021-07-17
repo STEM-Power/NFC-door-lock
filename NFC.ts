@@ -293,6 +293,19 @@ namespace NFC {
         writeAndReadBuf(tempbuf, 16);
     }
    
+    function write_byte(addr: number, dat: number): void {
+        let buf = pins.createBuffer(3);
+        buf[0] = addr >> 8;
+        buf[1] = addr;
+        buf[2] = dat;
+        pins.i2cWriteBuffer(AT24_I2C_ADDR, buf)
+    }
+
+    function read_byte(addr: number): number {
+        pins.i2cWriteNumber(AT24_I2C_ADDR, addr, NumberFormat.UInt16BE);
+        return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
+    }
+
     //% weight=9
     //% block="Detect NFC Card"
     export function checkCard(): boolean {
@@ -475,6 +488,36 @@ namespace NFC {
     export function registered_card(): number {
         pins.i2cWriteNumber(AT24_I2C_ADDR, 0x00, NumberFormat.UInt16BE);
         return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
+    }
+
+    /**
+    * register NFC card
+    * @param ID card identification, eg: 1
+    */
+    //% weight=49
+    //% ID.min=1 ID.max=32
+    //% blockId="Register_Card" block="register NFC card UID to %ID"
+    export function recordUid():  {
+        if (NFC_ENABLE = 0)  {
+            wakeup();
+        };
+        if (!checkCard()) {
+            return "No NFC Card!";
+        }
+        let nfcUid = "";
+        let byte1 = 0;
+        let byte2 = 0;
+        let byte3 = 0;
+        let byte4 = 0;
+        byte4 = (nfcUid & 0xFF);
+        byte3 = (nfcUid & 0xFF00) >> 8;
+        byte2 = (nfcUid & 0xFF0000) >> 16;
+        byte1 = (nfcUid & 0xFF000000) >> 24;
+        write_byte(ID*4, byte4);
+        write_byte(ID * 4+1, byte3);
+        write_byte(ID * 4+2, byte2);
+        write_byte(ID * 4+3, byte1);
+
     }
 
 
