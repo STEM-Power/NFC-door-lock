@@ -16,6 +16,10 @@
         "test.ts"
     ],
     "public": false,
+    "targetVersions": {
+        "target": "4.0.9",
+        "targetId": "microbit"
+    },
     "supportedTargets": [
         "microbit"
     ],

@@ -133,6 +133,7 @@ enum byteNumList {
 //% color="#0017FF" height=100 icon="\uf084" block="NFC"
 namespace NFC {
     let NFC_I2C_ADDR = (0x24);
+    let AT24_I2C_ADDR = 80;
     let recvBuf = pins.createBuffer(32);
     let recvAck = pins.createBuffer(8);
     let ackBuf = pins.createBuffer(6);
@@ -464,5 +465,46 @@ namespace NFC {
     export function nfcDataList(dataNum?: byteNumList): number {
         return dataNum;
     }
+
+
+    /**
+     * check how many registered card
+     */
+    //% blockId="Read_R_Card" block="check how many registered"
+    //% weight=50 blockGap=8
+    export function registered_card(): number {
+        pins.i2cWriteNumber(AT24_I2C_ADDR, 0x00, NumberFormat.UInt16BE);
+        return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
+    }
+
+
+
+
+    /**
+         * write a byte to special address
+         * @param addr eeprom address, eg: 1
+         * @param dat is the data will be write, eg: 5
+         */
+    //% blockId="AT24_WriteByte" block="eeprom address %addr|write byte %dat"
+    //% weight=29 blockGap=8
+    export function write_byte(addr: number, dat: number): void {
+        let buf = pins.createBuffer(3);
+        buf[0] = addr >> 8;
+        buf[1] = addr;
+        buf[2] = dat;
+        pins.i2cWriteBuffer(AT24_I2C_ADDR, buf)
+    }
+
+    /**
+     * read a byte from special address
+     * @param addr eeprom address, eg: 1
+     */
+    //% blockId="AT24_ReadByte" block="read byte from address %addr"
+    //% weight=28 blockGap=8
+    export function read_byte(addr: number): number {
+        pins.i2cWriteNumber(AT24_I2C_ADDR, addr, NumberFormat.UInt16BE);
+        return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
+    }
+
 
 }
