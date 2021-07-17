@@ -483,7 +483,7 @@ namespace NFC {
     /**
      * check how many registered card
      */
-    //% blockId="Read_R_Card" block="check how many registered"
+    //% blockId="Read_R_Card" block="check registered card amount"
     //% weight=50 blockGap=8
     export function registered_card(): number {
         pins.i2cWriteNumber(AT24_I2C_ADDR, 0x00, NumberFormat.UInt16BE);
