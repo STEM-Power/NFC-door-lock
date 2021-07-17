@@ -498,11 +498,18 @@ namespace NFC {
     //% ID.min=1 ID.max=32
     //% blockId="Register_Card" block="register NFC card UID to identification %ID"
     export function recordUid(ID: number): void {
-        if (NFC_ENABLE = 0)  {
+        if (NFC_ENABLE = 0) {
             wakeup();
         }
-        if (checkCard()) {
-        //let nfcUid = "";
+        let buf: number[] = [];
+        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
+        let cmdUid = pins.createBufferFromArray(buf);
+        writeAndReadBuf(cmdUid, 24);
+               
+        for (let i = 0; i < uId.length; i++) {
+            uId[i] = recvBuf[14 + i];
+        }
+
         let byte1 = uId[0];
         let byte2 = uId[1];
         let byte3 = uId[2];
@@ -515,7 +522,7 @@ namespace NFC {
         write_byte_eeprom(ID * 4 + 1, byte3);
         write_byte_eeprom(ID * 4 + 2, byte2);
         write_byte_eeprom(ID * 4 + 3, byte1);
-        }
+        
     }
 
 
