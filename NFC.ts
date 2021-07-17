@@ -567,6 +567,7 @@ namespace NFC {
             let R_byte4 = read_byte_eeprom(i + 1 * 4 + 3)
             if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4) {
                 return true;
+                break;
             }
         }
         return false;
