@@ -525,13 +525,13 @@ namespace NFC {
             uId[i] = recvBuf[14 + i];
         }
         let byte1 = uId[0];
-        basic.showNumber(byte1)
+        //basic.showNumber(byte1)
         let byte2 = uId[1];
-        basic.showNumber(byte2)
+        //basic.showNumber(byte2)
         let byte3 = uId[2];
-        basic.showNumber(byte3)
+        //basic.showNumber(byte3)
         let byte4 = uId[3];
-        basic.showNumber(byte4)
+        //basic.showNumber(byte4)
         write_byte_eeprom(ID * 4, byte1);
         basic.pause(10)
         write_byte_eeprom(ID * 4 + 1, byte2);
