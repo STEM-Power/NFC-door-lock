@@ -587,16 +587,16 @@ namespace NFC {
             basic.showNumber(i);
             let R_byte1 = read_byte_eeprom (i + 1 * 4)
             basic.showNumber(i + 1 * 4);
-            basic.showNumber(R_byte1);
+            //basic.showNumber(R_byte1);
             let R_byte2 = read_byte_eeprom(i + 1 * 4 + 1)
             basic.showNumber(i + 1 * 4 + 1);
-            basic.showNumber(R_byte2);
+            //basic.showNumber(R_byte2);
             let R_byte3 = read_byte_eeprom(i + 1 * 4 + 2)
             basic.showNumber(i + 1 * 4 + 2);
-            basic.showNumber(R_byte3);
+            //basic.showNumber(R_byte3);
             let R_byte4 = read_byte_eeprom(i + 1 * 4 + 3)
             basic.showNumber(i + 1 * 4 + 3);
-            basic.showNumber(R_byte4);
+            //basic.showNumber(R_byte4);
             if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
                 matching += 1;
                 basic.showNumber(matching);
