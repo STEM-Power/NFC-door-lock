@@ -558,47 +558,47 @@ namespace NFC {
         writeAndReadBuf(cmdUid, 24);
         for (let i = 0; i < 4; i++) {
             if (recvAck[1 + i] != ackBuf[i]) {
-                basic.showString("a")
+            //    basic.showString("a")
                 return false;
             }
         }
         if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
-            basic.showString("b")
+        //    basic.showString("b")
             return false;
         }
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
         }
         if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
-            basic.showString("c")
+        //    basic.showString("c")
             return false;
         }
         let byte1 = uId[0];
-        basic.showNumber(byte1)
+        //basic.showNumber(byte1)
         let byte2 = uId[1];
-        basic.showNumber(byte2)
+        //basic.showNumber(byte2)
         let byte3 = uId[2];
-        basic.showNumber(byte3)
+        //basic.showNumber(byte3)
         let byte4 = uId[3];
-        basic.showNumber(byte4)
+        //basic.showNumber(byte4)
         let matching = 0;
         for (let i = 0; i < cardcount; i++) {
-            basic.showNumber(i);
+            //basic.showNumber(i);
             let R_byte1 = read_byte_eeprom (i + 1 * 4)
-            basic.showNumber(i + 1 * 4);
-            basic.showNumber(R_byte1);
+            //basic.showNumber(i + 1 * 4);
+            //basic.showNumber(R_byte1);
             let R_byte2 = read_byte_eeprom(i + 1 * 4 + 1)
-            basic.showNumber(i + 1 * 4 + 1);
-            basic.showNumber(R_byte2);
+            //basic.showNumber(i + 1 * 4 + 1);
+            //basic.showNumber(R_byte2);
             let R_byte3 = read_byte_eeprom(i + 1 * 4 + 2)
-            basic.showNumber(i + 1 * 4 + 2);
-            basic.showNumber(R_byte3);
+            //basic.showNumber(i + 1 * 4 + 2);
+            //basic.showNumber(R_byte3);
             let R_byte4 = read_byte_eeprom(i + 1 * 4 + 3)
-            basic.showNumber(i + 1 * 4 + 3);
-            basic.showNumber(R_byte4);
+            //basic.showNumber(i + 1 * 4 + 3);
+            //basic.showNumber(R_byte4);
             if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
                 matching += 1;
-                basic.showNumber(matching);
+                //basic.showNumber(matching);
             }
         }
         if (matching > 0) {
