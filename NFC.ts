@@ -133,7 +133,7 @@ enum byteNumList {
 //% color="#0017FF" height=100 icon="\uf084" block="NFC"
 namespace NFC {
     let NFC_I2C_ADDR = (0x24);
-    let AT24_I2C_ADDR = 80;
+    let AT24_I2C_ADDR = 0x50;
     let recvBuf = pins.createBuffer(32);
     let recvAck = pins.createBuffer(8);
     let ackBuf = pins.createBuffer(6);
@@ -495,7 +495,7 @@ namespace NFC {
      * record number of registered card to memory
      * @param card number of card registered, eg: 1
      */
-    //% blockId="Write_R_Card" block="record number of registered card to memory %card"
+    //% blockId="Write_R_Card" block="record the number of registered card to memory %card"
     //% weight=49 blockGap=8
     export function Write_R_Card(card: number): void {
         let buf = pins.createBuffer(3);
@@ -503,6 +503,8 @@ namespace NFC {
         buf[1] = 0x00;
         buf[2] = card;
         pins.i2cWriteBuffer(AT24_I2C_ADDR, buf)
+        basic.pause(10);
+
     }
 
     /**
@@ -540,15 +542,15 @@ namespace NFC {
         basic.pause(10)
         write_byte_eeprom(ID * 4 + 3, byte4);
         basic.pause(10)
+        
     }
 
     /**
     * compare NFC card with the registered card record
     */
-    //% weight=47
+    //% weight=46
     //% blockId="Exam_Card" block="found the card in the registered card record"
     export function Exam_Card(): boolean {
-        let cardcount = registered_card();
         //basic.showNumber(cardcount)
         if (NFC_ENABLE === 0) {
             wakeup();
@@ -583,7 +585,7 @@ namespace NFC {
         let byte4 = uId[3];
         //basic.showNumber(byte4)
         let matching = 0;
-        for (let i = 0; i < cardcount; i++) {
+        for (let i = 0; i < 32; i++) {
             //basic.showNumber(i);
             let currentID = i + 1;
             let R_byte1 = read_byte_eeprom (currentID * 4)
