@@ -513,7 +513,7 @@ namespace NFC {
     //% ID.min=1 ID.max=32
     //% blockId="Register_Card" block="register NFC card UID to identification %ID"
     export function recordUid(ID: number): void {
-        if (NFC_ENABLE = 0) {
+        if (NFC_ENABLE === 0) {
             wakeup();
         }
         let buf: number[] = [];
@@ -549,7 +549,7 @@ namespace NFC {
     //% blockId="Exam_Card" block="found the card with the registered card record"
     export function Exam_Card(): boolean {
         let cardcount = registered_card();
-        if (NFC_ENABLE = 0) {
+        if (NFC_ENABLE === 0) {
             wakeup();
         }
         let buf: number[] = [];
@@ -558,16 +558,19 @@ namespace NFC {
         writeAndReadBuf(cmdUid, 24);
         for (let i = 0; i < 4; i++) {
             if (recvAck[1 + i] != ackBuf[i]) {
+                basic.showString("a")
                 return false;
             }
         }
         if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
+            basic.showString("b")
             return false;
         }
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
         }
         if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
+            basic.showString("c")
             return false;
         }
         let byte1 = uId[0];
