@@ -564,10 +564,11 @@ namespace NFC {
         if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
             return false;
         }
-
-
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
+        }
+        if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
+            return false;
         }
         let byte1 = uId[0];
         basic.showNumber(byte1)
