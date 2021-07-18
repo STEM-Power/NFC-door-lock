@@ -638,7 +638,7 @@ namespace NFC {
     * @param c_ID the ID number, eg: 1
     */
     //% weight=45
-    //% blockId="Exam_Card" block="ID |%c_ID is available for use?"
+    //% blockId="ID_available" block="ID |%c_ID is available for use?"
     //% c_ID.min=1 c_ID.max=32
     export function ID_available(c_ID : number): boolean {
 
