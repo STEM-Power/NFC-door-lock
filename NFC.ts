@@ -542,7 +542,7 @@ namespace NFC {
     * compare NFC card with the registered card record
     */
     //% weight=47
-    //% blockId="Exam_Card" block="compare the card with the registered card record"
+    //% blockId="Exam_Card" block="found the card with the registered card record"
     export function Exam_Card(): boolean {
         let cardcount = registered_card();
         if (NFC_ENABLE = 0) {
@@ -560,17 +560,23 @@ namespace NFC {
         let byte2 = uId[1];
         let byte3 = uId[2];
         let byte4 = uId[3];
+        let matching = 0;
         for (let i = 0; i < cardcount; i++) {
             let R_byte1 = read_byte_eeprom (i + 1 * 4)
             let R_byte2 = read_byte_eeprom(i + 1 * 4 + 1)
             let R_byte3 = read_byte_eeprom(i + 1 * 4 + 2)
             let R_byte4 = read_byte_eeprom(i + 1 * 4 + 3)
             if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4) {
-                return true;
-                break;
+                            let matching = 1;
             }
         }
-        return false;
+            if (matching == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        
+        
     }
 
 
