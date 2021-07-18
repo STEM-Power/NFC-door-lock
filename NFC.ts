@@ -299,11 +299,13 @@ namespace NFC {
         buf[1] = addr;
         buf[2] = dat;
         pins.i2cWriteBuffer(AT24_I2C_ADDR, buf)
+        basic.pause(5)
     }
 
     function read_byte_eeprom(addr: number): number {
         pins.i2cWriteNumber(AT24_I2C_ADDR, addr, NumberFormat.UInt16BE);
         return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
+        basic.pause(5)
     }
 
     //% weight=9
@@ -535,13 +537,9 @@ namespace NFC {
         let byte4 = uId[3];
         //basic.showNumber(byte4)
         write_byte_eeprom(ID * 4, byte1);
-        basic.pause(10)
         write_byte_eeprom(ID * 4 + 1, byte2);
-        basic.pause(10)
         write_byte_eeprom(ID * 4 + 2, byte3);
-        basic.pause(10)
         write_byte_eeprom(ID * 4 + 3, byte4);
-        basic.pause(10)
         
     }
 
@@ -556,13 +554,9 @@ namespace NFC {
     export function delete_card(ID: number): void {
 
         write_byte_eeprom(ID * 4, 0x00);
-        basic.pause(10)
         write_byte_eeprom(ID * 4 + 1, 0x00);
-        basic.pause(10)
         write_byte_eeprom(ID * 4 + 2, 0x00);
-        basic.pause(10)
         write_byte_eeprom(ID * 4 + 3, 0x00);
-        basic.pause(10)
         let cardcount = read_byte_eeprom(0x00);
         cardcount -= 1;
         write_byte_eeprom(0x00, cardcount)
