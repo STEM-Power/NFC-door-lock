@@ -545,6 +545,30 @@ namespace NFC {
         
     }
 
+
+    /**
+    * deleted a registered NFC card
+    * @param ID card identification, eg: 1
+    */
+    //% weight=47
+    //% ID.min=1 ID.max=32
+    //% blockId="delete_card" block="delete a registered NFC card in %ID"
+    export function delete_card(ID: number): void {
+
+        write_byte_eeprom(ID * 4, 0x00);
+        basic.pause(10)
+        write_byte_eeprom(ID * 4 + 1, 0x00);
+        basic.pause(10)
+        write_byte_eeprom(ID * 4 + 2, 0x00);
+        basic.pause(10)
+        write_byte_eeprom(ID * 4 + 3, 0x00);
+        basic.pause(10)
+        let cardcount = read_byte_eeprom(0x00);
+        cardcount -= 1;
+        write_byte_eeprom(0x00, cardcount)
+    }
+
+
     /**
     * compare NFC card with the registered card record
     */
