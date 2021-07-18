@@ -633,7 +633,26 @@ namespace NFC {
     }
 
 
+    /**
+    * check ID is available for use
+    * @param c_ID the ID number, eg: 1
+    */
+    //% weight=45
+    //% blockId="Exam_Card" block="ID |%c_ID is available for use?"
+    //% c_ID.min=1 c_ID.max=32
+    export function ID_available(c_ID : number): boolean {
 
+        let T_byte1 = read_byte_eeprom(c_ID * 4)
+        let T_byte2 = read_byte_eeprom(c_ID * 4 + 1)
+        let T_byte3 = read_byte_eeprom(c_ID * 4 + 2)
+        let T_byte4 = read_byte_eeprom(c_ID * 4 + 3)
+        if (T_byte1 === T_byte2 && T_byte2 === T_byte3 && T_byte3 === T_byte4 && T_byte4 === 0x00) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 
     /**
