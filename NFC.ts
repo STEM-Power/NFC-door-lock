@@ -549,7 +549,7 @@ namespace NFC {
     //% blockId="Exam_Card" block="found the card with the registered card record"
     export function Exam_Card(): boolean {
         let cardcount = registered_card();
-        basic.showNumber(cardcount)
+        //basic.showNumber(cardcount)
         if (NFC_ENABLE === 0) {
             wakeup();
         }
@@ -575,13 +575,13 @@ namespace NFC {
             return false;
         }
         let byte1 = uId[0];
-        basic.showNumber(byte1)
+        //basic.showNumber(byte1)
         let byte2 = uId[1];
-        basic.showNumber(byte2)
+        //basic.showNumber(byte2)
         let byte3 = uId[2];
-        basic.showNumber(byte3)
+        //basic.showNumber(byte3)
         let byte4 = uId[3];
-        basic.showNumber(byte4)
+        //basic.showNumber(byte4)
         let matching = 0;
         for (let i = 0; i < cardcount; i++) {
             basic.showNumber(i);
