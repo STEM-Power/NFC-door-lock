@@ -566,15 +566,15 @@ namespace NFC {
             let R_byte2 = read_byte_eeprom(i + 1 * 4 + 1)
             let R_byte3 = read_byte_eeprom(i + 1 * 4 + 2)
             let R_byte4 = read_byte_eeprom(i + 1 * 4 + 3)
-            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && byte1 != 0xFF) {
+            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
                 matching += 1;
             }
         }
-            if (matching > 0) {
-                return true;
-            } else {
-                return false;
-            }
+        if (matching > 0) {
+            return true;
+        } else {
+            return false;
+        }
         
         
     }
