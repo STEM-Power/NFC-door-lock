@@ -556,6 +556,15 @@ namespace NFC {
         buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
         let cmdUid = pins.createBufferFromArray(buf);
         writeAndReadBuf(cmdUid, 24);
+        for (let i = 0; i < 4; i++) {
+            if (recvAck[1 + i] != ackBuf[i]) {
+                return false;
+            }
+        }
+        if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
+            return false;
+        }
+
 
         for (let i = 0; i < uId.length; i++) {
             uId[i] = recvBuf[14 + i];
