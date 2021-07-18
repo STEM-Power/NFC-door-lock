@@ -533,13 +533,13 @@ namespace NFC {
         let byte4 = uId[3];
         basic.showNumber(byte4)
         write_byte_eeprom(ID * 4, byte1);
-        pause(5)
+        basic.pause(10)
         write_byte_eeprom(ID * 4 + 1, byte2);
-        pause(5)
+        basic.pause(10)
         write_byte_eeprom(ID * 4 + 2, byte3);
-        pause(5)
+        basic.pause(10)
         write_byte_eeprom(ID * 4 + 3, byte4);
-        
+        basic.pause(10)
     }
 
     /**
