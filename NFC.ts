@@ -314,54 +314,54 @@ namespace NFC {
         basic.pause(5)
     }
 
-    function Exam_Card(): number {
-        if (NFC_ENABLE === 0) {
-            wakeup();
-        }
-        let buf: number[] = [];
-        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
-        let cmdUid = pins.createBufferFromArray(buf);
-        writeAndReadBuf(cmdUid, 24);
-        for (let i = 0; i < 4; i++) {
-            if (recvAck[1 + i] != ackBuf[i]) {
-                return 0x64;
-            }
-        }
-        if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
-            return 0x65;
-        }
-        for (let i = 0; i < uId.length; i++) {
-            uId[i] = recvBuf[14 + i];
-        }
-        if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
-            return 0x66;
-        }
-        let byte1 = uId[0];
-        let byte2 = uId[1];
-        let byte3 = uId[2];
-        let byte4 = uId[3];
-        //let matching = 0;
-        let matchedID = 0;
-        for (let i = 0; i < 32; i++) {
-            let currentID = i + 1;
-            let R_byte1 = read_byte_eeprom(currentID * 4)
-            let R_byte2 = read_byte_eeprom(currentID * 4 + 1)
-            let R_byte3 = read_byte_eeprom(currentID * 4 + 2)
-            let R_byte4 = read_byte_eeprom(currentID * 4 + 3)
-            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
-            //    matching += 1;
-                let matchedID = currentID;
-            } 
-             //else {
-            //    return 0;
-            //}
-        }
+//    function Exam_Card(): number {
+//        if (NFC_ENABLE === 0) {
+//            wakeup();
+//        }
+//        let buf: number[] = [];
+//        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
+//        let cmdUid = pins.createBufferFromArray(buf);
+//        writeAndReadBuf(cmdUid, 24);
+//        for (let i = 0; i < 4; i++) {
+//            if (recvAck[1 + i] != ackBuf[i]) {
+//                return 0x64;
+//            }
+//        }
+//        if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
+//            return 0x65;
+//        }
+//        for (let i = 0; i < uId.length; i++) {
+//            uId[i] = recvBuf[14 + i];
+//        }
+//        if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
+//            return 0x66;
+//        }
+//        let byte1 = uId[0];
+//       let byte2 = uId[1];
+//        let byte3 = uId[2];
+//        let byte4 = uId[3];
+//        //let matching = 0;
+//        let matchedID = 0;
+//        for (let i = 0; i < 32; i++) {
+//            let currentID = i + 1;
+//            let R_byte1 = read_byte_eeprom(currentID * 4)
+//            let R_byte2 = read_byte_eeprom(currentID * 4 + 1)
+//            let R_byte3 = read_byte_eeprom(currentID * 4 + 2)
+//            let R_byte4 = read_byte_eeprom(currentID * 4 + 3)
+//            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
+//            //    matching += 1;
+//                let matchedID = currentID;
+//            } 
+//             //else {
+//            //    return 0;
+//            //}
+//        }
         //if (matching < 1) {
         //    return 0;
         //} else {
-            return matchedID;
+//            return matchedID;
         //}
-    }
+//    }
 
 
     //% weight=9
@@ -625,8 +625,53 @@ namespace NFC {
     //% weight=46
     //% blockId="CardIDsearch" block="ID found in the record"
     export function CardIDsearch(): number {
-        let cardID = Exam_Card();
-        return cardID;      
+        if (NFC_ENABLE === 0) {
+            wakeup();
+        }
+        let buf: number[] = [];
+        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
+        let cmdUid = pins.createBufferFromArray(buf);
+        writeAndReadBuf(cmdUid, 24);
+        for (let i = 0; i < 4; i++) {
+            if (recvAck[1 + i] != ackBuf[i]) {
+                return 0x64;
+            }
+        }
+        if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
+            return 0x65;
+        }
+        for (let i = 0; i < uId.length; i++) {
+            uId[i] = recvBuf[14 + i];
+        }
+        if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
+            return 0x66;
+        }
+        let byte1 = uId[0];
+        let byte2 = uId[1];
+        let byte3 = uId[2];
+        let byte4 = uId[3];
+        //let matching = 0;
+        let matchedID = 0;
+        for (let i = 0; i < 32; i++) {
+            let currentID = i + 1;
+            let R_byte1 = read_byte_eeprom(currentID * 4)
+            let R_byte2 = read_byte_eeprom(currentID * 4 + 1)
+            let R_byte3 = read_byte_eeprom(currentID * 4 + 2)
+            let R_byte4 = read_byte_eeprom(currentID * 4 + 3)
+            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
+                //    matching += 1;
+                let matchedID = currentID;
+                return matchedID;
+            }
+            //else {
+            //    return 0;
+            //}
+        }
+        //if (matching < 1) {
+        //    return 0;
+        //} else {
+        return matchedID;
+
         
     }
 
