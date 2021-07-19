@@ -508,7 +508,7 @@ namespace NFC {
      */
     //% blockId="Write_R_Card" block="record the number of registered card to memory %card"
     //% weight=49 blockGap=8
-    export function Write_R_Card(card: number): void {
+    export function write_R_Card(card: number): void {
         let buf = pins.createBuffer(3);
         buf[0] = 0x0000 >> 8;
         buf[1] = 0x00;
@@ -579,7 +579,7 @@ namespace NFC {
     */
     //% weight=46
     //% blockId="CardIDsearch" block="card ID found in the record"
-    export function CardIDsearch(): number {
+    export function cardIDsearch(): number {
         if (NFC_ENABLE === 0) {
             wakeup();
         }
@@ -630,7 +630,7 @@ namespace NFC {
     //% weight=45
     //% blockId="ID_available" block="ID |%c_ID is available for use?"
     //% c_ID.min=1 c_ID.max=32
-    export function ID_available(c_ID : number): boolean {
+    export function id_available(c_ID : number): boolean {
 
         let T_byte1 = read_byte_eeprom(c_ID * 4)
         let T_byte2 = read_byte_eeprom(c_ID * 4 + 1)
