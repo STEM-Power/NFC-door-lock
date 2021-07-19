@@ -566,8 +566,10 @@ namespace NFC {
         write_byte_eeprom(ID * 4 + 2, 0x00);
         write_byte_eeprom(ID * 4 + 3, 0x00);
         let cardcount = read_byte_eeprom(0x00);
-        cardcount -= 1;
+        if (cardcount > 0 ) {
+            cardcount -= 1;
         write_byte_eeprom(0x00, cardcount)
+        }
     }
 
 
