@@ -1,3 +1,9 @@
+/**
+* STEM Power NFC door lock microbit extension.
+* https://stem-power.com
+*/
+
+
 enum DataBlockList {
     //% block="1"
     block_1 = 1,
@@ -308,6 +314,53 @@ namespace NFC {
         basic.pause(5)
     }
 
+    function Exam_Card(): number {
+        if (NFC_ENABLE === 0) {
+            wakeup();
+        }
+        let buf: number[] = [];
+        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
+        let cmdUid = pins.createBufferFromArray(buf);
+        writeAndReadBuf(cmdUid, 24);
+        for (let i = 0; i < 4; i++) {
+            if (recvAck[1 + i] != ackBuf[i]) {
+                return 0x64;
+            }
+        }
+        if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
+            return 0x65;
+        }
+        for (let i = 0; i < uId.length; i++) {
+            uId[i] = recvBuf[14 + i];
+        }
+        if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
+            return 0x66;
+        }
+        let byte1 = uId[0];
+        let byte2 = uId[1];
+        let byte3 = uId[2];
+        let byte4 = uId[3];
+        let matching = 0;
+        for (let i = 0; i < 32; i++) {
+            let currentID = i + 1;
+            let R_byte1 = read_byte_eeprom(currentID * 4)
+            let R_byte2 = read_byte_eeprom(currentID * 4 + 1)
+            let R_byte3 = read_byte_eeprom(currentID * 4 + 2)
+            let R_byte4 = read_byte_eeprom(currentID * 4 + 3)
+            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
+                matching += 1;
+                return currentID;
+            } 
+             //else {
+            //    return 0;
+            //}
+        }
+        if (matching < 1) {
+            return 0;
+        }
+    }
+
+
     //% weight=9
     //% block="Detect NFC Card"
     export function checkCard(): boolean {
@@ -567,68 +620,10 @@ namespace NFC {
     * compare NFC card with the registered card record
     */
     //% weight=46
-    //% blockId="Exam_Card" block="found the card in the registered card record"
-    export function Exam_Card(): boolean {
-        //basic.showNumber(cardcount)
-        if (NFC_ENABLE === 0) {
-            wakeup();
-        }
-        let buf: number[] = [];
-        buf = [0x00, 0x00, 0xFF, 0x04, 0xFC, 0xD4, 0x4A, 0x01, 0x00, 0xE1, 0x00];
-        let cmdUid = pins.createBufferFromArray(buf);
-        writeAndReadBuf(cmdUid, 24);
-        for (let i = 0; i < 4; i++) {
-            if (recvAck[1 + i] != ackBuf[i]) {
-                //basic.showString("a")
-                return false;
-            }
-        }
-        if ((recvBuf[6] != 0xD5) || (!checkDcs(24 - 4))) {
-            //basic.showString("b")
-            return false;
-        }
-        for (let i = 0; i < uId.length; i++) {
-            uId[i] = recvBuf[14 + i];
-        }
-        if (uId[0] === uId[1] && uId[1] === uId[2] && uId[2] === uId[3] && uId[3] === 0xFF) {
-            //basic.showString("c")
-            return false;
-        }
-        let byte1 = uId[0];
-        //basic.showNumber(byte1)
-        let byte2 = uId[1];
-        //basic.showNumber(byte2)
-        let byte3 = uId[2];
-        //basic.showNumber(byte3)
-        let byte4 = uId[3];
-        //basic.showNumber(byte4)
-        let matching = 0;
-        for (let i = 0; i < 32; i++) {
-            //basic.showNumber(i);
-            let currentID = i + 1;
-            let R_byte1 = read_byte_eeprom (currentID * 4)
-            //basic.showNumber(currentID * 4);
-            //basic.showNumber(R_byte1);
-            let R_byte2 = read_byte_eeprom(currentID* 4 + 1)
-            //basic.showNumber(currentID * 4 + 1);
-            //basic.showNumber(R_byte2);
-            let R_byte3 = read_byte_eeprom(currentID * 4 + 2)
-            //basic.showNumber(currentID * 4 + 2);
-            //basic.showNumber(R_byte3);
-            let R_byte4 = read_byte_eeprom(currentID * 4 + 3)
-            //basic.showNumber(currentID * 4 + 3);
-            //basic.showNumber(R_byte4);
-            if (byte1 === R_byte1 && byte2 === R_byte2 && byte3 === R_byte3 && byte4 === R_byte4 && R_byte1 != 0x00) {
-                matching += 1;
-                //basic.showNumber(matching);
-            }
-        }
-        if (matching > 0) {
-            return true;
-        } else {
-            return false;
-        }
-        
+    //% blockId="CardIDsearch" block="ID found in the record"
+    export function CardIDsearch(): number {
+        let cardID = Exam_Card();
+        return cardID;      
         
     }
 
