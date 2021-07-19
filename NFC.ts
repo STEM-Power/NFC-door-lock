@@ -237,6 +237,7 @@ namespace NFC {
         }
         return ret;
     }
+    
     function numberToString(x: number): string {
         let ret = "";
         let temp = ((x & 0xF0) >> 4);
@@ -617,16 +618,8 @@ namespace NFC {
                 let matchedID = currentID;
                 return matchedID;
             }
-            //else {
-            //    return 0;
-            //}
         }
-        //if (matching < 1) {
-        //    return 0;
-        //} else {
-        return matchedID;
-
-        
+        return matchedID;        
     }
 
 
@@ -652,31 +645,6 @@ namespace NFC {
     }
 
 
-    /**
-         * write a byte to special address
-         * @param addr eeprom address, eg: 1
-         * @param dat is the data will be write, eg: 5
-         */
-    //% blockId="AT24_WriteByte" block="eeprom address %addr|write byte %dat"
-    //% weight=29 blockGap=8
-    export function write_byte(addr: number, dat: number): void {
-        let buf = pins.createBuffer(3);
-        buf[0] = addr >> 8;
-        buf[1] = addr;
-        buf[2] = dat;
-        pins.i2cWriteBuffer(AT24_I2C_ADDR, buf)
-    }
-
-    /**
-     * read a byte from special address
-     * @param addr eeprom address, eg: 1
-     */
-    //% blockId="AT24_ReadByte" block="read byte from address %addr"
-    //% weight=28 blockGap=8
-    export function read_byte(addr: number): number {
-        pins.i2cWriteNumber(AT24_I2C_ADDR, addr, NumberFormat.UInt16BE);
-        return pins.i2cReadNumber(AT24_I2C_ADDR, NumberFormat.UInt8BE);
-    }
 
 
 }
