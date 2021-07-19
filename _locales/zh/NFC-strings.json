@@ -11,7 +11,7 @@
     "NFC.registered_card|block": "已登記的NFC咭數量",
     "NFC.write_R_Card|block": "在記憶體寫上已登記 %card| 張咭",
     "NFC.recordUid|block": "將NFC咭登記為ID |%ID|",
-    "NFC.delete_card|block": "將|ID %ID|的咭註銷",
+    "NFC.delete_card|block": "將ID |%ID|的咭註銷",
     "NFC.cardIDsearch|block": "此NFC咭的登記ID",
-    "NFC.id_available|block": "|ID %c_ID|是否可用？"
+    "NFC.id_available|block": "ID |%c_ID|是否可用？"
 }
