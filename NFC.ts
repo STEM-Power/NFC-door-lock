@@ -316,9 +316,11 @@ namespace NFC {
     }
 
 
-
-    //% weight=9
-    //% block="Detect NFC Card"
+    /**
+     * a NFC card detected?
+     */
+    //% blockId="checkCard" block="Detect NFC Card"
+    //% weight=39 blockGap=8
     export function checkCard(): boolean {
         if (NFC_ENABLE === 0) {
             wakeup();
@@ -344,8 +346,11 @@ namespace NFC {
         return true;
     }
 
-    //% weight=8
-    //% block="Check NFC UID|%id"
+    /**
+     * the NFC UID is %id|?
+     */
+    //% blockId="checkCard" block="Check NFC UID|%id"
+    //% weight=38 blockGap=8
     //% id.defl="6F12A342"
     export function checkUid(id: string): boolean {
         if (NFC_ENABLE === 0) {
@@ -357,8 +362,11 @@ namespace NFC {
         return false;
     }
 
-    //% weight=7
-    //% block="Get NFC UID"
+    /**
+     * get the NFC card UID
+     */
+    //% blockId="checkCard" block="Get NFC UID"
+    //% weight=37 blockGap=8
     export function getUid(): string {
         if (NFC_ENABLE === 0) {
             wakeup();
@@ -373,8 +381,10 @@ namespace NFC {
         return nfcUid;
     }
 
-
-    //% weight=6
+    /**
+     * read data from specific NFC card data block 
+     */
+    //% weight=36 blockGap=8
     //% block="Read NFC data block|%block=block_nfc_list"
     //% block.defl=1
     export function readDataBlock(block: number): string {
@@ -419,7 +429,10 @@ namespace NFC {
         return "read error!";
     }
 
-    //% weight=5
+    /**
+     * read 1 byte data from specific NFC card data block
+     */
+    //% weight=35 blockGap=8
     //% block="Read one byte NFC data at|%block=block_nfc_list|%byteN=data_nfc_list"
     //% block.defl=1
     //% blockN.defl=1 byteN.defl=1
@@ -432,7 +445,11 @@ namespace NFC {
         ret = ret + (blockData[byteN - 1]).toString();
         return ret;
     }
-    //% weight=4
+
+    /**
+    * read data from specific NFC card data block
+    */
+    //% weight=34 blockGap=8
     //% block="Read NFC data at|%blockN=block_nfc_list|%index=data_nfc_list|%nByte byte"
     //% block.defl=1
     //% blockN.defl=1 byteN.defl=1
@@ -457,7 +474,10 @@ namespace NFC {
         return ret;
     }
 
-    //% weight=3
+    /**
+    * write data to specific NFC card data block
+    */
+    //% weight=33 blockGap=8
     //% blockId=write_nfc_data 
     //% data.min=0 data.max=255
     //% block="NFC card|%blockN=block_nfc_list|%index=data_nfc_list|write%data"
@@ -478,13 +498,20 @@ namespace NFC {
         writeblock(blockN, blockData);
         basic.pause(3);
     }
-     //% weight=2
+
+    /**
+    * NFC card data block
+    */
+    //% weight=32 blockGap=8
     //% blockId=block_nfc_list block="%blockNum|data block"
     export function blockList(blockNum?: DataBlockList): number {
         return blockNum;
     }
 
-    //% weight=1
+    /**
+    * NFC card data byte
+    */
+    //% weight=31 blockGap=8
     //% blockId=data_nfc_list block="%dataNum|byte"
     export function nfcDataList(dataNum?: byteNumList): number {
         return dataNum;
