@@ -15,7 +15,7 @@
   "NFC.readDataNByte": "讀取NFC卡中指定數據塊內的多個字節（byte）數值",
   "NFC.recordUid": "在系統中將NFC卡登記為指定ID",
   "NFC.recordUid|param|ID": "NFC卡登記ID編號, eg: 1",
-  "NFC.registered_card": "已登記的NFC咭數量",
+  "NFC.registered_card": "已登記的NFC卡數量",
   "NFC.writeData": "向NFC卡中指定數據塊寫入數值",
   "NFC.write_R_Card": "在系統記錄已登記的NFC卡數量",
   "NFC.write_R_Card|param|card": "在系統中已登記的NFC卡數量, eg: 1"
