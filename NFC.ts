@@ -363,7 +363,7 @@ namespace NFC {
     }
 
     /**
-     * get the NFC card UID
+     * get the NFC card UID, the UID is show in string format
      */
     //% blockId="checkCard" block="Get NFC UID"
     //% weight=37 blockGap=8
@@ -519,9 +519,9 @@ namespace NFC {
 
 
     /**
-     * check how many registered card
+     * check how many registered card in system
      */
-    //% blockId="Read_R_Card" block="check registered card amount"
+    //% blockId="Read_R_Card" block="check the amount of registered card"
     //% weight=50 blockGap=8
     export function registered_card(): number {
         pins.i2cWriteNumber(AT24_I2C_ADDR, 0x00, NumberFormat.UInt16BE);
@@ -530,8 +530,8 @@ namespace NFC {
 
 
     /**
-     * record number of registered card to memory
-     * @param card number of card registered, eg: 1
+     * record the amount of registered card to memory
+     * @param card is the amount of card registered, eg: 1
      */
     //% blockId="Write_R_Card" block="record the number of registered card to memory %card"
     //% weight=49 blockGap=8
@@ -546,7 +546,7 @@ namespace NFC {
     }
 
     /**
-    * register NFC card
+    * registeration of NFC card to specific ID
     * @param ID card identification, eg: 1
     */
     //% weight=48
@@ -581,7 +581,7 @@ namespace NFC {
 
 
     /**
-    * deleted a registered NFC card
+    * deleted a specific ID NFC card in memory
     * @param ID card identification, eg: 1
     */
     //% weight=47
@@ -602,7 +602,7 @@ namespace NFC {
 
 
     /**
-    * compare NFC card with the registered card record
+    * compare NFC card with the registered card record, output the matched ID if any, output "0" mean no matched ID in the record, output >99 mean error occured during NFC reading
     */
     //% weight=46
     //% blockId="CardIDsearch" block="card ID found in the record"
@@ -651,7 +651,7 @@ namespace NFC {
 
 
     /**
-    * check ID is available for use
+    * check the ID is available for use or not
     * @param c_ID the ID number, eg: 1
     */
     //% weight=45
