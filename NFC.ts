@@ -349,7 +349,7 @@ namespace NFC {
     /**
      * the NFC UID is %id|?
      */
-    //% blockId="checkCard" block="Check NFC UID|%id"
+    //% blockId="checkUid" block="Check NFC UID|%id"
     //% weight=38 blockGap=8
     //% id.defl="6F12A342"
     export function checkUid(id: string): boolean {
@@ -365,7 +365,7 @@ namespace NFC {
     /**
      * get the NFC card UID, the UID is show in string format
      */
-    //% blockId="checkCard" block="Get NFC UID"
+    //% blockId="getUid" block="Get NFC UID"
     //% weight=37 blockGap=8
     export function getUid(): string {
         if (NFC_ENABLE === 0) {
