@@ -1,0 +1,22 @@
+{
+  "DataBlockList": "STEM Power NFC 門鎖microbit makecode擴充.\nhttps://stem-power.com",
+  "NFC.blockList": "NFC 卡數據塊",
+  "NFC.cardIDsearch": "將NFC卡和系統記錄對比，輸出匹配的ID編號。若果輸出是\"0\"，即是沒有找到匹配ID。若果輸出值大於99，代表讀卡時發生錯誤。",
+  "NFC.checkCard": "檢測到NFC卡?",
+  "NFC.checkUid": "NFC卡的UID是否 %id|?",
+  "NFC.delete_card": "將指定ID 的卡註銷",
+  "NFC.delete_card|param|ID": "卡的ID編號, eg: 1",
+  "NFC.getUid": "讀取NFC卡的UID，以字符格式輸出",
+  "NFC.id_available": "檢查這個ID是否可以用",
+  "NFC.id_available|param|c_ID": "ID編號, eg: 1",
+  "NFC.nfcDataList": "NFC卡數據字節",
+  "NFC.readDataBlock": "讀取NFC卡中指定數據塊內的數值",
+  "NFC.readDataByte": "從NFC卡中指定數據塊內讀取1字節（byte）的數值",
+  "NFC.readDataNByte": "讀取NFC卡中指定數據塊內的多個字節（byte）數值",
+  "NFC.recordUid": "在系統中將NFC卡登記為指定ID",
+  "NFC.recordUid|param|ID": "NFC卡登記ID編號, eg: 1",
+  "NFC.registered_card": "已登記的NFC咭數量",
+  "NFC.writeData": "向NFC卡中指定數據塊寫入數值",
+  "NFC.write_R_Card": "在系統記錄已登記的NFC卡數量",
+  "NFC.write_R_Card|param|card": "在系統中已登記的NFC卡數量, eg: 1"
+}
