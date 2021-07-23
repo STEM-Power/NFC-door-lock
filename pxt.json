@@ -9,9 +9,7 @@
     },
     "files": [
         "README.md",
-        "NFC.ts",
-        "_locales/zh-TW/NFC door lock-jsdoc-strings.json",
-        "_locales/zh-TW/NFC door lock-strings.json"
+        "NFC.ts"
     ],
     "testFiles": [
         "test.ts"
